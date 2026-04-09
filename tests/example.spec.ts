@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
-test("has title", async ({ page }) => {
-  await page.goto("/");
+test("should displayed the correct page title", async ({ page }) => {
+  await page.goto("");
   await expect(page).toHaveTitle(/Rolnopol/);
 });
 
