@@ -1,5 +1,14 @@
 # Copilot Instructions
 
+## Testing Framework
+
+This project uses **Playwright Test** as the testing framework. Before creating or modifying tests, always review [playwright.config.ts](../playwright.config.ts) to understand 
+- Base URL configuration 
+- Timeout settings 
+- Browser configurations
+- Test directory structure
+- Reporter settings
+
 ## Test Plan and Tagging System
 
 When creating or updating tests, always apply tags from the [TEST_PLAN.md](../TEST_PLAN.md) tagging system using Playwright's `test.tag()` API or inline tag strings.
