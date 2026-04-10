@@ -12,40 +12,40 @@ Testing strategy for Rolnopol agricultural management system based on http://loc
 
 ### 1. Smoke Tests ✅
 
-- [x] Homepage loads with title "Rolnopol"
-- [ ] Key pages accessible (login, register, docs, marketplace)
-- [ ] API health check responds
+- [x] Homepage loads with title "Rolnopol" `@smoke` `@critical`
+- [ ] Key pages accessible (login, register, docs, marketplace) `@smoke` `@navigation`
+- [ ] API health check responds `@smoke` `@api`
 
 ### 2. Authentication
 
-- [ ] User registration and login
-- [ ] Session management and logout
-- [ ] Role-based access (farmer, admin, superadmin)
+- [ ] User registration and login `@auth` `@registration` `@login`
+- [ ] Session management and logout `@auth` `@session` `@logout`
+- [ ] Role-based access (farmer, admin, superadmin) `@auth` `@rbac` `@permissions`
 
 ### 3. Farm Management
 
-- [ ] Add/edit/delete fields, animals, staff
-- [ ] Create assignments between staff and fields
-- [ ] Prevent operations on assigned resources
+- [ ] Add/edit/delete fields, animals, staff `@crud` `@farm` `@resources`
+- [ ] Create assignments between staff and fields `@farm` `@assignments` `@business-logic`
+- [ ] Prevent operations on assigned resources `@farm` `@validation` `@edge-case`
 
 ### 4. Marketplace
 
-- [ ] Create offers for unassigned resources
-- [ ] Purchase offers with sufficient funds
-- [ ] Block purchases with insufficient funds
-- [ ] Transfer ownership after successful purchase
+- [ ] Create offers for unassigned resources `@marketplace` `@offers` `@crud`
+- [ ] Purchase offers with sufficient funds `@marketplace` `@purchase` `@happy-path`
+- [ ] Block purchases with insufficient funds `@marketplace` `@purchase` `@validation` `@edge-case`
+- [ ] Transfer ownership after successful purchase `@marketplace` `@ownership` `@business-logic`
 
 ### 5. Financial Operations
 
-- [ ] View account balance and transaction history
-- [ ] Fund transfers between users
-- [ ] Prevent overdraft (negative balances)
+- [ ] View account balance and transaction history `@financial` `@balance` `@history`
+- [ ] Fund transfers between users `@financial` `@transfer` `@business-logic`
+- [ ] Prevent overdraft (negative balances) `@financial` `@validation` `@edge-case`
 
 ### 6. End-to-End Scenarios
 
-- [ ] **New Farm Setup**: Register → Login → Add resources → Create assignments
-- [ ] **Marketplace Trade**: Create offer → Browse → Purchase → Verify ownership transfer
-- [ ] **Insufficient Funds**: Attempt expensive purchase → Verify blocked transaction
+- [ ] **New Farm Setup**: Register → Login → Add resources → Create assignments `@e2e` `@farm-setup` `@user-journey`
+- [ ] **Marketplace Trade**: Create offer → Browse → Purchase → Verify ownership transfer `@e2e` `@marketplace-flow` `@user-journey`
+- [ ] **Insufficient Funds**: Attempt expensive purchase → Verify blocked transaction `@e2e` `@edge-case` `@validation`
 
 ## Test Priorities
 
