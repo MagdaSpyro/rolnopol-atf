@@ -13,7 +13,9 @@ Testing strategy for Rolnopol agricultural management system based on http://loc
 ### 1. Smoke Tests ✅
 
 - [x] Homepage loads with title "Rolnopol" `@smoke` `@critical`
-- [ ] Key pages accessible (login, register, docs, marketplace) `@smoke` `@navigation`
+- [x] Login page loads and form elements visible `@smoke` `@navigation`
+- [x] Register page loads and form elements visible `@smoke` `@navigation`
+- [ ] Docs and marketplace pages accessible `@smoke` `@navigation`
 - [ ] API health check responds `@smoke` `@api`
 
 ### 2. Authentication
