@@ -11,15 +11,15 @@ This project uses **Playwright Test** as the testing framework. Before creating 
 
 ## Test Plan and Tagging System
 
-When creating or updating tests, always apply tags from the [TEST_PLAN.md](../TEST_PLAN.md) tagging system using Playwright's `test.tag()` API or inline tag strings.
-                    |
+When creating or updating tests, always apply tags from the [TEST_PLAN.md](../TEST_PLAN.md) tagging system using Playwright's `tag` test option or inline `@tag` strings in the test title.
 
 **Rules:**
 
-- Every test must have at least one area tag (e.g. `@smoke`, `@auth`, `@farm`) and one behaviour tag (e.g. `@crud`, `@validation`, `@happy-path`)
-- Use `@critical` for P0 tests and `@edge-case` for boundary/error conditions
+- Every test must include the tag or tags defined for its corresponding scenario in [TEST_PLAN.md](../TEST_PLAN.md)
+- Use at least one functional area or suite tag (e.g. `@smoke`, `@auth`, `@farm`) and add behaviour/risk tags (e.g. `@crud`, `@validation`, `@happy-path`, `@edge-case`, `@critical`) when the matching `TEST_PLAN.md` item includes them
+- Smoke tests may use suite/priority/navigation tags such as `@smoke`, `@critical`, and `@navigation` when that is how the corresponding `TEST_PLAN.md` item is tagged
 - When adding a new test, mark the corresponding item as `[x]` in `TEST_PLAN.md`
-- When introducing a new tag not listed above, add it to the relevant area in `TEST_PLAN.md` before using it
+- When introducing a new tag not already defined in `TEST_PLAN.md`, add it to the relevant section there before using it
 
 **Example:**
 

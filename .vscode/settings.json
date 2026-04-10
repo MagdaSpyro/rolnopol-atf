@@ -4,6 +4,5 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit"
   },
-  "cSpell.userWords": ["Rolnopol"],
-  "terminal.integrated.defaultProfile.windows": "Git Bash"
+  "cSpell.userWords": ["Rolnopol"]
 }
