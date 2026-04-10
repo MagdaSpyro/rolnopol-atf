@@ -1,75 +1,67 @@
-# Rolnopol – Test Plan
+# Rolnopol Test Plan
 
-**Application:** http://localhost:3000  
-**Docs:** http://localhost:3000/docs.html  
-**Version:** 1.0.99
+## Overview
 
----
+Testing strategy for Rolnopol agricultural management system based on http://localhost:3000/docs.html
 
-## 1. Registration & Login
+**Application**: Farm management system with marketplace functionality  
+**Environment**: http://localhost:3000  
+**Framework**: Playwright
 
-| #   | Test Case                                             | Expected Result                                                                    |
-| --- | ----------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| 1.1 | Register with valid email, display name, and password | Account created; user redirected to `/profile.html`                                |
-| 1.2 | Register with already used email                      | Error message displayed                                                            |
-| 1.3 | Login with valid credentials                          | Redirected to `/profile.html`; `rolnopolToken` and `rolnopolLoginTime` cookies set |
-| 1.4 | Login with invalid credentials                        | Error message displayed; no cookies set                                            |
-| 1.5 | Access a protected page without a token               | Redirected to login or error shown                                                 |
-| 1.6 | Logout                                                | Authentication cookies cleared; session invalidated                                |
+## Core Test Areas
 
----
+### 1. Smoke Tests ✅
 
-## 2. Farm & Resource Management
+- [x] Homepage loads with title "Rolnopol"
+- [ ] Key pages accessible (login, register, docs, marketplace)
+- [ ] API health check responds
 
-| #   | Test Case                                             | Expected Result                                        |
-| --- | ----------------------------------------------------- | ------------------------------------------------------ |
-| 2.1 | Add a field (name, area)                              | Field appears in user's farm dashboard                 |
-| 2.2 | Edit a field                                          | Changes saved and reflected in dashboard               |
-| 2.3 | Delete an unassigned field                            | Field removed from the list                            |
-| 2.4 | Add an animal (type, amount) and assign it to a field | Animal listed; field assignment saved                  |
-| 2.5 | Add a staff member (name, age)                        | Staff member appears in the list                       |
-| 2.6 | Assign a staff member to a field                      | Assignment created and visible                         |
-| 2.7 | Remove an assignment                                  | Assignment deleted; resource no longer linked to field |
+### 2. Authentication
 
----
+- [ ] User registration and login
+- [ ] Session management and logout
+- [ ] Role-based access (farmer, admin, superadmin)
 
-## 3. Marketplace Trading
+### 3. Farm Management
 
-| #   | Test Case                                        | Expected Result                                                |
-| --- | ------------------------------------------------ | -------------------------------------------------------------- |
-| 3.1 | Browse marketplace offers                        | Available offers listed                                        |
-| 3.2 | Create an offer for an unassigned asset          | Offer created with status `active`                             |
-| 3.3 | Attempt to create an offer for an assigned asset | Offer created with status `unavailable`                        |
-| 3.4 | Purchase an active offer with sufficient funds   | Ownership transferred; balances updated; offer status → `sold` |
-| 3.5 | Attempt to purchase with insufficient funds      | Error: "Insufficient funds: overdraft is not allowed."         |
-| 3.6 | Attempt to purchase own offer                    | Purchase blocked                                               |
-| 3.7 | Cancel an active offer                           | Offer status → `cancelled`                                     |
+- [ ] Add/edit/delete fields, animals, staff
+- [ ] Create assignments between staff and fields
+- [ ] Prevent operations on assigned resources
 
----
+### 4. Marketplace
 
-## 4. Financial Operations
+- [ ] Create offers for unassigned resources
+- [ ] Purchase offers with sufficient funds
+- [ ] Block purchases with insufficient funds
+- [ ] Transfer ownership after successful purchase
 
-| #   | Test Case                          | Expected Result                                       |
-| --- | ---------------------------------- | ----------------------------------------------------- |
-| 4.1 | View account balance               | Current balance displayed correctly                   |
-| 4.2 | View transaction history           | List of past income/expense transactions shown        |
-| 4.3 | Sell a resource via marketplace    | `income` transaction recorded; balance increased      |
-| 4.4 | Buy a resource via marketplace     | `expense` transaction recorded; balance decreased     |
-| 4.5 | Transfer funds to another user     | Sender balance decreases; recipient balance increases |
-| 4.6 | Transfer more than current balance | Transfer blocked; error displayed                     |
+### 5. Financial Operations
 
----
+- [ ] View account balance and transaction history
+- [ ] Fund transfers between users
+- [ ] Prevent overdraft (negative balances)
 
-## 5. System Health
+### 6. End-to-End Scenarios
 
-| #   | Test Case                                         | Expected Result              |
-| --- | ------------------------------------------------- | ---------------------------- |
-| 5.1 | Call health-check endpoint (`GET /api/v1/health`) | `200 OK` with healthy status |
+- [ ] **New Farm Setup**: Register → Login → Add resources → Create assignments
+- [ ] **Marketplace Trade**: Create offer → Browse → Purchase → Verify ownership transfer
+- [ ] **Insufficient Funds**: Attempt expensive purchase → Verify blocked transaction
 
----
+## Test Priorities
 
-## Out of Scope
+- **P0**: Smoke tests, authentication, basic CRUD
+- **P1**: Marketplace trading, financial operations
+- **P2**: Edge cases, error handling
 
-- Admin / Superadmin dashboards and audit logs
-- Rate limiting edge cases
-- Performance and load testing
+## Success Criteria
+
+- All P0 and P1 tests pass
+- Core user flows work as documented
+- Financial transactions are accurate and secure
+
+## Next Steps
+
+1. Expand smoke tests for key pages
+2. Add authentication test suite
+3. Implement marketplace transaction tests
+4. Create end-to-end user journey tests
