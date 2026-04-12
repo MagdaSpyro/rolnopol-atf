@@ -11,7 +11,7 @@ test(
 
 test(
   "should load login page successfully",
-  { tag: ["@smoke", "@auth"] },
+  { tag: ["@smoke", "@navigation", "@auth"] },
   async ({ page }) => {
     const expectedSubtitle = "User Login & Account Access";
 
