@@ -2,9 +2,10 @@
 
 ## Testing Framework
 
-This project uses **Playwright Test** as the testing framework. Before creating or modifying tests, always review [playwright.config.ts](../playwright.config.ts) to understand 
-- Base URL configuration 
-- Timeout settings 
+This project uses **Playwright Test** as the testing framework. Before creating or modifying tests, always review [playwright.config.ts](../playwright.config.ts) to understand
+
+- Base URL configuration
+- Timeout settings
 - Browser configurations
 - Test directory structure
 - Reporter settings
@@ -32,6 +33,12 @@ test(
   },
 );
 ```
+
+---
+
+## Arrange, Act, Assert (AAA) Pattern
+
+All tests must use `// Arrange`, `// Act`, and `// Assert` comments to separate each phase. Keep the `// Arrange` comment even if there is no setup data.
 
 ---
 
