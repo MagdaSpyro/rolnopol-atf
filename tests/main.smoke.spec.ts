@@ -45,6 +45,22 @@ test(
 );
 
 test(
+  "should register a new user successfully",
+  { tag: ["@smoke", "@auth"] },
+  async ({ page }) => {
+    const email = `newuser_${Date.now()}@rolnopol.com`;
+
+    await page.goto("/register.html");
+    await page.getByTestId("email-input").fill(email);
+    await page.getByTestId("display-name-input").fill("New User April");
+    await page.getByTestId("password-input").fill("Test123");
+    await page.getByTestId("register-submit-btn").click();
+
+    await expect(page).toHaveURL(/login\.html/);
+  },
+);
+
+test(
   "should load docs page successfully",
   { tag: ["@smoke", "@docs"] },
   async ({ page }) => {
