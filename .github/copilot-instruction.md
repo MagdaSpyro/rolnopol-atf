@@ -1,5 +1,9 @@
 # Copilot Instructions
 
+## Coding Standards
+
+Follow the project coding standards in [CODING_STANDARDS.md](../CODING_STANDARDS.md) when creating or modifying test code, page objects, and helper files.
+
 ## Testing Framework
 
 This project uses **Playwright Test** as the testing framework. Before creating or modifying tests, always review [playwright.config.ts](../playwright.config.ts) to understand
@@ -33,12 +37,6 @@ test(
   },
 );
 ```
-
----
-
-## Arrange, Act, Assert (AAA) Pattern
-
-All tests must use `// Arrange`, `// Act`, and `// Assert` comments to separate each phase. Keep the `// Arrange` comment even if there is no setup data.
 
 ---
 
