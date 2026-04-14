@@ -2,7 +2,15 @@
 
 ## Coding Standards
 
-Follow the project coding standards in [CODING_STANDARDS.md](../CODING_STANDARDS.md) when creating or modifying test code, page objects, and helper files.
+Follow [CODING_STANDARDS.md](../CODING_STANDARDS.md) for all code-level conventions when creating or modifying tests, page objects, and helper files.
+
+`CODING_STANDARDS.md` is the source of truth for:
+
+- test structure conventions
+- Page Object pattern rules
+- code organization expectations for test-related files
+
+Do not duplicate or redefine those rules in this file.
 
 ## Testing Framework
 
