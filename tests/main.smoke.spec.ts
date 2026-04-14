@@ -1,47 +1,63 @@
 import { expect, test } from "@playwright/test";
-import { RegisterPage } from "./page-objects/register.page";
+import { generateUniqueEmail } from "../src/helpers/testDataHelpers";
+import { RegisterPage } from "../src/pages/Register.page";
 
 test(
   "should display the correct page title 'Rolnopol' on homepage",
   { tag: ["@smoke", "@critical"] },
   async ({ page }) => {
     // Arrange
-    // Act
     await page.goto("");
 
-    // Assert
+    // Act & Assert
     await expect(page).toHaveTitle("Rolnopol");
-  },
+  }
 );
 
 test(
   "should load login page successfully",
-  { tag: ["@smoke", "@navigation", "@auth"] },
+  { tag: ["@smoke", "@auth"] },
   async ({ page }) => {
     // Arrange
+    await page.goto("/login.html");
     const expectedSubtitle = "User Login & Account Access";
 
-    // Act
-    await page.goto("/login.html");
-
-    // Assert
+    // Act & Assert
     await expect(page.getByTestId("login-subtitle")).toHaveText(
-      expectedSubtitle,
+      expectedSubtitle
     );
-  },
+  }
 );
 
 test(
-  "should load swagger page successfully",
-  { tag: ["@smoke", "@api"] },
+  "should load API documentation page successfully",
+  { tag: ["@smoke", "@documentation"] },
   async ({ page }) => {
     // Arrange
-    // Act
     await page.goto("/swagger.html");
+    const expectedHeading =
+      "API documentation for the Rolnopol service with versioning support";
 
-    // Assert
-    await expect(page).toHaveTitle("Rolnopol - Swagger");
-  },
+    // Act & Assert
+    await expect(
+      page.frameLocator("iframe").getByText(expectedHeading)
+    ).toBeVisible();
+  }
+);
+
+test(
+  "should load documentation page successfully",
+  { tag: ["@smoke", "@documentation"] },
+  async ({ page }) => {
+    // Arrange
+    await page.goto("/docs.html");
+    const expectedSubtitle = "Rolnopol System Guide & API Reference";
+
+    // Act & Assert
+    await expect(page.locator(".docs-header-subtitle")).toHaveText(
+      expectedSubtitle
+    );
+  }
 );
 
 test(
@@ -49,53 +65,29 @@ test(
   { tag: ["@smoke", "@auth", "@registration"] },
   async ({ page }) => {
     // Arrange
-    const expectedSubtitle = "Create Your User Account";
     const registerPage = new RegisterPage(page);
+    await registerPage.goto();
+    const expectedSubtitle = "Create Your User Account";
 
-    // Act
-     await registerPage.goto();
-
-    // Assert
-    await expect(page.getByTestId("register-subtitle")).toHaveText(
-      expectedSubtitle,
-    );
-  },
+    // Act & Assert
+    await expect(registerPage.registerSubtitle).toHaveText(expectedSubtitle);
+  }
 );
 
 test(
-  "should register a new user successfully",
+  "should register new user successfully",
   { tag: ["@smoke", "@auth", "@registration"] },
   async ({ page }) => {
     // Arrange
-    const email = `newuser_${Date.now()}@rolnopol.com`;
     const registerPage = new RegisterPage(page);
-
-    // Act
     await registerPage.goto();
-    await registerPage.register({
-      email,
-      displayName: "New User April",
-      password: "Test123",
-    });
-
-    // Assert
-    await registerPage.expectSuccessfulRegistration();
-  },
-);
-
-test(
-  "should load docs page successfully",
-  { tag: ["@smoke", "@docs"] },
-  async ({ page }) => {
-    // Arrange
-    const expectedSubtitle = "Rolnopol System Guide & API Reference";
+    const uniqueEmail = generateUniqueEmail();
 
     // Act
-    await page.goto("/docs.html");
+    await registerPage.register(uniqueEmail, "testpassword123", "Test User");
 
     // Assert
-    await expect(page.getByTestId("docs-header-title-col")).toContainText(
-      expectedSubtitle,
-    );
-  },
+    await expect(registerPage.successMessage).toBeVisible();
+    await expect(page).toHaveURL("/login.html");
+  }
 );
