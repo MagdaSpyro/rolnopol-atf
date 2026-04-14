@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { RegisterPage } from "./page-objects/register.page";
 
 test(
   "should display the correct page title 'Rolnopol' on homepage",
@@ -31,23 +32,6 @@ test(
 );
 
 test(
-  "should load register page successfully",
-  { tag: ["@smoke", "@auth"] },
-  async ({ page }) => {
-    // Arrange
-    const expectedSubtitle = "Create Your User Account";
-
-    // Act
-    await page.goto("/register.html");
-
-    // Assert
-    await expect(page.getByTestId("register-subtitle")).toHaveText(
-      expectedSubtitle,
-    );
-  },
-);
-
-test(
   "should load swagger page successfully",
   { tag: ["@smoke", "@api"] },
   async ({ page }) => {
@@ -61,22 +45,41 @@ test(
 );
 
 test(
+  "should load register page successfully",
+  { tag: ["@smoke", "@auth", "@registration"] },
+  async ({ page }) => {
+    // Arrange
+    const expectedSubtitle = "Create Your User Account";
+    const registerPage = new RegisterPage(page);
+
+    // Act
+     await registerPage.goto();
+
+    // Assert
+    await expect(page.getByTestId("register-subtitle")).toHaveText(
+      expectedSubtitle,
+    );
+  },
+);
+
+test(
   "should register a new user successfully",
-  { tag: ["@smoke", "@auth"] },
+  { tag: ["@smoke", "@auth", "@registration"] },
   async ({ page }) => {
     // Arrange
     const email = `newuser_${Date.now()}@rolnopol.com`;
+    const registerPage = new RegisterPage(page);
 
     // Act
-    await page.goto("/register.html");
-    await page.getByTestId("email-input").fill(email);
-    await page.getByTestId("display-name-input").fill("New User April");
-    await page.getByTestId("password-input").fill("Test123");
-    await page.getByTestId("register-submit-btn").click();
+    await registerPage.goto();
+    await registerPage.register({
+      email,
+      displayName: "New User April",
+      password: "Test123",
+    });
 
     // Assert
-    await expect(page.getByText("Registration successful!")).toBeVisible();
-    await expect(page).toHaveURL(/login\.html/);
+    await registerPage.expectSuccessfulRegistration();
   },
 );
 
