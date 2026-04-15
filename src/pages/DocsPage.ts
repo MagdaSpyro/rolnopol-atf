@@ -1,15 +1,12 @@
 import { Locator, Page } from "@playwright/test";
+import { BasePage } from "./BasePage";
 
-export class DocsPage {
-  readonly page: Page;
+export class DocsPage extends BasePage {
+  readonly url = "/docs.html";
   readonly headerSubtitle: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.headerSubtitle = page.locator(".docs-header-subtitle");
-  }
-
-  async goto() {
-    await this.page.goto("/docs.html");
   }
 }

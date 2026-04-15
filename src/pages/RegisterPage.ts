@@ -1,7 +1,8 @@
 import { Locator, Page } from "@playwright/test";
+import { BasePage } from "./BasePage";
 
-export class RegisterPage {
-  readonly page: Page;
+export class RegisterPage extends BasePage {
+  readonly url = "/register.html";
   readonly emailInput: Locator;
   readonly displayNameInput: Locator;
   readonly passwordInput: Locator;
@@ -10,17 +11,13 @@ export class RegisterPage {
   readonly successMessage: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.emailInput = page.getByTestId("email-input");
     this.displayNameInput = page.getByTestId("display-name-input");
     this.passwordInput = page.getByTestId("password-input");
     this.registerSubmitBtn = page.getByTestId("register-submit-btn");
     this.registerSubtitle = page.getByTestId("register-subtitle");
     this.successMessage = page.getByText("Registration successful!");
-  }
-
-  async goto() {
-    await this.page.goto("/register.html");
   }
 
   async register(email: string, password: string, displayName?: string) {

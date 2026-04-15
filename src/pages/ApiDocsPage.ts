@@ -1,17 +1,14 @@
 import { Locator, Page } from "@playwright/test";
+import { BasePage } from "./BasePage";
 
-export class ApiDocsPage {
-  readonly page: Page;
+export class ApiDocsPage extends BasePage {
+  readonly url = "/swagger.html";
   readonly documentationHeading: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.documentationHeading = page.frameLocator("iframe").getByText(
       "API documentation for the Rolnopol service with versioning support"
     );
-  }
-
-  async goto() {
-    await this.page.goto("/swagger.html");
   }
 }
