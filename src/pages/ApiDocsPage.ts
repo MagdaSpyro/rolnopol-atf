@@ -1,8 +1,9 @@
 import { Locator, Page } from "@playwright/test";
+import { PAGE_URLS, PageUrl } from "../constants/pageUrls";
 import { BasePage } from "./BasePage";
 
 export class ApiDocsPage extends BasePage {
-  readonly url = "/swagger.html";
+  readonly url: PageUrl = PAGE_URLS.API_DOCS;
   readonly documentationHeading: Locator;
 
   constructor(page: Page) {
