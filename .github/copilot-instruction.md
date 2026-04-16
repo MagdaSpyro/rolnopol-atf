@@ -1,10 +1,23 @@
 # Copilot Instructions
 
+## Coding Standards
+
+Follow [CODING_STANDARDS.md](../CODING_STANDARDS.md) for all code-level conventions when creating or modifying tests, page objects, and helper files.
+
+`CODING_STANDARDS.md` is the source of truth for:
+
+- test structure conventions
+- Page Object pattern rules
+- code organization expectations for test-related files
+
+Do not duplicate or redefine those rules in this file.
+
 ## Testing Framework
 
-This project uses **Playwright Test** as the testing framework. Before creating or modifying tests, always review [playwright.config.ts](../playwright.config.ts) to understand 
-- Base URL configuration 
-- Timeout settings 
+This project uses **Playwright Test** as the testing framework. Before creating or modifying tests, always review [playwright.config.ts](../playwright.config.ts) to understand
+
+- Base URL configuration
+- Timeout settings
 - Browser configurations
 - Test directory structure
 - Reporter settings
