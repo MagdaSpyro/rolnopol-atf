@@ -19,6 +19,12 @@ Testing strategy for Rolnopol agricultural management system based on http://loc
 ### 2. Authentication
 
 - [ ] User registration and login `@auth` `@registration` `@login`
+- [x] Registration negative scenarios `@auth` `@registration` `@negative` `@validation`
+  - [x] Invalid email format shows error "Please enter a valid email address"
+  - [x] Password too short (< 3 chars) shows error "Password must be at least 3 characters"
+  - [x] Both invalid email and short password show both errors simultaneously
+  - [x] Empty required fields prevent form submission
+  - [x] Duplicate email shows error "User with this email already exists"
 - [ ] Session management and logout `@auth` `@session` `@logout`
 - [ ] Role-based access (farmer, admin, superadmin) `@auth` `@rbac` `@permissions`
 

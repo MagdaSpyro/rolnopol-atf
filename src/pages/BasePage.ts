@@ -1,15 +1,18 @@
 import { Page } from "@playwright/test";
-import { PageUrl } from "../constants/pageUrls";
-//BasePage to klasa abstrakcyjna, która definiuje wspólne właściwości i metody dla wszystkich stron w aplikacji. Każda konkretna strona (np. HomePage, LoginPage) będzie dziedziczyć po BasePage i implementować swoją własną wartość url oraz ewentualnie dodatkowe metody specyficzne dla danej strony. Metoda goto() umożliwia nawigację do określonej strony, korzystając z jej url.
+
+/**
+ * Base class for Page Object pattern implementation.
+ * Provides navigation and shared functionality; child classes define specific PAGE_URL.
+ */
 export abstract class BasePage {
-  protected abstract readonly url: PageUrl;
   readonly page: Page;
+  protected abstract readonly PAGE_URL: string;
 
   constructor(page: Page) {
     this.page = page;
   }
 
   async goto() {
-    await this.page.goto(this.url);
+    await this.page.goto(this.PAGE_URL);
   }
 }
