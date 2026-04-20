@@ -45,11 +45,8 @@ rolnopol-atf/
 
 ## Coding Standards
 
-This project follows conventions described in [CODING_STANDARDS.md](./CODING_STANDARDS.md):
-
-- **Arrange-Act-Assert (AAA)** pattern — every test is split into clearly marked `// Arrange`, `// Act`, and `// Assert` sections
-- **Page Object pattern** — UI interactions are encapsulated in Page Object classes; `expect()` assertions belong only in test files
+See [CODING_STANDARDS.md](./CODING_STANDARDS.md).
 
 ## Test Plan
 
-The scope, priorities, and progress of the test suite are tracked in [TEST_PLAN.md](./TEST_PLAN.md).
+See [TEST_PLAN.md](./TEST_PLAN.md).
