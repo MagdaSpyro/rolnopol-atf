@@ -3,7 +3,8 @@ name: Hello CI
 on:
   push:
     branches:
-      - copilot/worktree-2026-04-22T15-58-41
+      - copilot/worktree-2026-04-22T16-29-12
+  workflow_dispatch:
 
 permissions:
   contents: read
