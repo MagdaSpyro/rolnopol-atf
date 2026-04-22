@@ -3,14 +3,12 @@ name: Hello CI
 on:
   push:
     branches:
-      - copilot/worktree-2026-04-22T15-58-41
-
-permissions:
-  contents: read
+      - feature/github-actions
 
 jobs:
   hello:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - name: Print hello message
+      - name: say Hello
         run: echo "Hello from CI"
