@@ -1,0 +1,16 @@
+name: Hello CI
+
+on:
+  push:
+    branches:
+      - copilot/worktree-2026-04-22T15-58-41
+
+permissions:
+  contents: read
+
+jobs:
+  hello:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Print hello message
+        run: echo "Hello from CI"
