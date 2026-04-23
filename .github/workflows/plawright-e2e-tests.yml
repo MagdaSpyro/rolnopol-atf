@@ -2,9 +2,9 @@ name: Playwright Tests
 
 on:
   push:
-    branches: 
-      - feature/github-actions 
-      
+    branches:
+      - feature/github-actions
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -21,9 +21,9 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: "24"
 
-      - name: Install dependencies 
+      - name: Install dependencies
         run: npm ci
 
       - name: Install Playwright Browsers
@@ -32,4 +32,17 @@ jobs:
       - name: Run Playwright tests
         run: npm test
 
-
+      # Step name shown in the GitHub Actions UI
+      - name: Upload Playwright report
+        # Run this step even if previous steps (e.g. tests) failed
+        if: always()
+        # Use the official GitHub action for uploading build/test artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          # Name of the artifact bundle as it will appear in the workflow run summary
+          name: playwright-report
+          # Paths to include in the artifact; both the HTML report and raw test results (traces, screenshots, videos)
+          path: |
+            playwright-report/
+          # Number of days GitHub will keep the artifact before automatically deleting it
+          retention-days: 30
