@@ -41,14 +41,12 @@ test(
   "should load API documentation page successfully",
   { tag: ["@smoke", "@documentation"] },
   async ({ page }) => {
-    // Arrange
     const apiDocsPage = new ApiDocsPage(page);
-
-    // Act
     await apiDocsPage.goto();
+    const expectedHeading =
+      "API documentation for the Rolnopol service with versioning support";
 
-    // Assert
-    await expect(apiDocsPage.documentationHeading).toBeVisible();
+    await expect(apiDocsPage.iframe.getByText(expectedHeading)).toBeVisible();
   }
 );
 
@@ -56,15 +54,11 @@ test(
   "should load documentation page successfully",
   { tag: ["@smoke", "@documentation"] },
   async ({ page }) => {
-    // Arrange
     const docsPage = new DocsPage(page);
+    await docsPage.goto();
     const expectedSubtitle = "Rolnopol System Guide & API Reference";
 
-    // Act
-    await docsPage.goto();
-
-    // Assert
-    await expect(docsPage.headerSubtitle).toHaveText(expectedSubtitle);
+    await expect(docsPage.docsHeaderSubtitle).toHaveText(expectedSubtitle);
   }
 );
 
