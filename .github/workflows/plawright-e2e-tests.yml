@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     services:
-      app:
+      rolnopol:
         image: jaktestowac/rolnopol:latest
         ports:
           - 3000:3000
