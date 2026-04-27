@@ -43,4 +43,4 @@ jobs:
           path: |
             playwright-report/
           # Number of days GitHub will keep the artifact before automatically deleting it
-          retention-days: 30
+          retention-days: 14
