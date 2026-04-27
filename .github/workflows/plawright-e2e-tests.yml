@@ -27,6 +27,20 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps chromium
 
+      - name: Wait for service to be ready
+        run: |
+          echo "Waiting for service on port 3000..."
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:3000 > /dev/null 2>&1; then
+              echo "Service is ready."
+              exit 0
+            fi
+            echo "Attempt $i/30 — retrying in 2s..."
+            sleep 2
+          done
+          echo "Service did not become ready in time." >&2
+          exit 1
+
       - name: Run Playwright tests
         run: npm test
 
