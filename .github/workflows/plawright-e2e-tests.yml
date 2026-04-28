@@ -55,13 +55,14 @@ jobs:
 
       # Step name shown in the GitHub Actions UI
       - name: Upload Playwright report
-        # Run this step even if previous steps (e.g. tests) failed
-        if: always()
+        # Run this step when tests pass or fail, but skip on cancellation
+        if: success() || failure()
         # Use the official GitHub action for uploading build/test artifacts
         uses: actions/upload-artifact@v4
         with:
           # Name of the artifact bundle as it will appear in the workflow run summary
-          name: playwright-report
+          # Includes run ID and attempt number to avoid collisions on re-runs
+          name: playwright-report-${{ github.run_id }}-${{ github.run_attempt }}
           # Paths to include in the artifact; both the HTML report and raw test results (traces, screenshots, videos)
           path: |
             playwright-report/
