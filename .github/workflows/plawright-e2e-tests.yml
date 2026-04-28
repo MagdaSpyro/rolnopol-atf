@@ -3,6 +3,10 @@ name: Playwright Tests
 on:
   pull_request: 
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -20,11 +24,26 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "24"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Playwright Browsers
+      - name: Get Playwright version
+        id: playwright-version
+        run: echo "version=$(npx playwright --version | awk '{print $2}')" >> $GITHUB_OUTPUT
+
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-browsers-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-browsers-
+
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps chromium
 
       - name: Wait for service to be ready
@@ -41,21 +60,25 @@ jobs:
           done
           echo "Service did not become ready in time." >&2
           exit 1
+      - name: Install Playwright browser system deps (cache hit)
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
 
       - name: Run Playwright tests
         run: npm test
 
       # Step name shown in the GitHub Actions UI
       - name: Upload Playwright report
-        # Run this step even if previous steps (e.g. tests) failed
-        if: always()
+        # Run this step when tests pass or fail, but skip on cancellation
+        if: success() || failure()
         # Use the official GitHub action for uploading build/test artifacts
         uses: actions/upload-artifact@v4
         with:
           # Name of the artifact bundle as it will appear in the workflow run summary
-          name: playwright-report
+          # Includes run ID and attempt number to avoid collisions on re-runs
+          name: playwright-report-${{ github.run_id }}-${{ github.run_attempt }}
           # Paths to include in the artifact; both the HTML report and raw test results (traces, screenshots, videos)
           path: |
             playwright-report/
           # Number of days GitHub will keep the artifact before automatically deleting it
-          retention-days: 30
+          retention-days: 14
