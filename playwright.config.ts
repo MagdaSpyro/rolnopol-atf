@@ -1,19 +1,22 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
-  testDir: './tests',
+  testDir: "./tests",
   timeout: 10 * 1000,
   fullyParallel: true,
-  reporter: [['html', { open: 'never' }]],
+  //process.env.CI gdy jestesmy na CI to uzywamy github reporter, a gdy nie jestesmy to uzywamy html reportera
+  reporter: process.env.CI
+    ? [["github"], ["html"]]
+    : [["html", { open: "never" }]],
   use: {
-    baseURL: 'http://localhost:3000',
-    trace: 'on',
+    baseURL: "http://localhost:3000",
+    trace: "on",
   },
 
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"] },
     },
   ],
 });
