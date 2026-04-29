@@ -8,3 +8,5 @@ node_modules/
 /playwright/.auth/
 .playwright-mcp/
 playwright-report-ci
+.ai-docs/*
+!.ai-docs/.gitkeep
