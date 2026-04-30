@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
@@ -9,7 +10,7 @@ export default defineConfig({
     ? [["github"], ["html"]]
     : [["html", { open: "never" }]],
   use: {
-    baseURL: "http://localhost:3000",
+    baseURL: process.env.BASE_URL,
     trace: "on",
   },
 

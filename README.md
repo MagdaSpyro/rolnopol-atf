@@ -16,6 +16,18 @@ Install project dependencies:
 npm install
 ```
 
+Create a local environment file:
+
+```bash
+cp .env.example .env
+```
+
+Update `.env` as needed:
+
+```bash
+BASE_URL=http://localhost:3000
+```
+
 Install Playwright browsers:
 
 ```bash
