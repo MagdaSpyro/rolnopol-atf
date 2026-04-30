@@ -3,7 +3,7 @@ import { PAGE_URLS } from "../constants/pageUrls";
 import { BasePage } from "./BasePage";
 
 export class DocsPage extends BasePage {
-  protected readonly PAGE_URL = PAGE_URLS.DOCS;
+  readonly PAGE_URL = PAGE_URLS.DOCS;
   readonly docsHeaderSubtitle: Locator;
 
   constructor(page: Page) {
