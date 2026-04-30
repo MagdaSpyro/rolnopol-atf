@@ -3,7 +3,7 @@ import { PAGE_URLS } from "../constants/pageUrls";
 import { BasePage } from "./BasePage";
 
 export class RegisterPage extends BasePage {
-  protected readonly PAGE_URL = PAGE_URLS.REGISTER;
+  readonly PAGE_URL = PAGE_URLS.REGISTER;
   readonly emailInput: Locator;
   readonly displayNameInput: Locator;
   readonly passwordInput: Locator;
