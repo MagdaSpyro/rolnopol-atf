@@ -1,8 +1,8 @@
 import { expect, test } from "@playwright/test";
+import { createUser } from "../src/factories/userFactory";
+import { HomePage } from "../src/pages/HomePage";
 import { LoginPage } from "../src/pages/LoginPage";
 import { ProfilePage } from "../src/pages/ProfilePage";
-import { HomePage } from "../src/pages/HomePage";
-import { createUser } from "../src/factories/userFactory";
 
 test(
   "should log in, verify profile sections, log out and return to home page",
@@ -17,7 +17,6 @@ test(
     // Act — navigate to login and submit credentials
     await loginPage.goto();
     await loginPage.login(user.email, user.password);
-
 
     // Assert — redirected to profile page
     await expect.soft(page).toHaveURL(profilePage.PAGE_URL);
