@@ -18,6 +18,8 @@ jobs:
     timeout-minutes: 10
     env:
       BASE_URL: ${{ vars.BASE_URL }}
+      USER_EMAIL: ${{ secrets.USER_EMAIL }}
+      USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
     services:
       rolnopol:
         image: jaktestowac/rolnopol:latest

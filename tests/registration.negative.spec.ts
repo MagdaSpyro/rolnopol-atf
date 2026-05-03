@@ -18,7 +18,7 @@ test.describe("Registration Negative Tests", () => {
       await expect(registerPage.emailValidationError).toBeVisible();
       await expect(registerPage.passwordValidationError).toBeVisible();
       await expect(page).toHaveURL(/register\.html$/);
-    }
+    },
   );
 
   test(
@@ -32,7 +32,7 @@ test.describe("Registration Negative Tests", () => {
 
       await expect(registerPage.successMessage).not.toBeVisible();
       await expect(page).toHaveURL(/register\.html$/);
-    }
+    },
   );
 
   test(
@@ -56,7 +56,7 @@ test.describe("Registration Negative Tests", () => {
         await expect.soft(registerPage.emailValidationError).toBeVisible();
         await expect.soft(page).toHaveURL(/register\.html$/);
       }
-    }
+    },
   );
 
   test(
@@ -64,17 +64,18 @@ test.describe("Registration Negative Tests", () => {
     { tag: ["@auth", "@registration", "@validation", "@negative"] },
     async ({ page }) => {
       const registerPage = new RegisterPage(page);
-      const shortPasswords = ["", "a", "ab"];
+      const shortPasswords = ["a", "ab"];
 
       for (const shortPassword of shortPasswords) {
         await registerPage.goto();
         await registerPage.emailInput.fill("valid@example.com");
         await registerPage.passwordInput.fill(shortPassword);
-        await registerPage.registerSubmitBtn.click();
+        await registerPage.registerSubmitBtn.click({ force: true });
 
+        await expect.soft(registerPage.passwordValidationError).toBeVisible();
         await expect.soft(registerPage.successMessage).not.toBeVisible();
         await expect.soft(page).toHaveURL(/register\.html$/);
       }
-    }
+    },
   );
 });

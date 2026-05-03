@@ -2,9 +2,7 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../src/pages/LoginPage";
 import { ProfilePage } from "../src/pages/ProfilePage";
 import { HomePage } from "../src/pages/HomePage";
-
-const LOGIN_EMAIL = "emptyuser@rolnopol.demo.pl";
-const LOGIN_PASSWORD = "demoPass123";
+import { createUser } from "../src/factories/userFactory";
 
 test(
   "should log in, verify profile sections, log out and return to home page",
@@ -14,10 +12,11 @@ test(
     const loginPage = new LoginPage(page);
     const profilePage = new ProfilePage(page);
     const homePage = new HomePage(page);
+    const user = createUser();
 
     // Act — navigate to login and submit credentials
     await loginPage.goto();
-    await loginPage.login(LOGIN_EMAIL, LOGIN_PASSWORD);
+    await loginPage.login(user.email, user.password);
 
 
     // Assert — redirected to profile page
