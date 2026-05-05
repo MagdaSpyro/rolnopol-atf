@@ -98,6 +98,18 @@ Before finishing, verify:
 - Tests include correct tags.
 - Assertions verify user-observable behavior.
 - No duplicated selectors or logic outside Page Objects.
+
+### 8. Verify CI/CD workflows (mandatory)
+
+After implementing code changes that affect configuration, environment variables, or dependencies:
+
+- Check if CI/CD workflows (`.github/workflows/*.yml`) need updates
+- Verify environment variables used in code are properly configured in workflows
+- Ensure workflow secrets and variables match new requirements
+- Test workflow changes locally if possible, or document required manual setup
+- Update the action plan with workflow verification results
+
+**Never complete implementation without verifying workflows are compatible with code changes.**
 - Code style matches existing tests.
 - Update the plan with validation results.
 - Run the tests to confirm they work as intended.
