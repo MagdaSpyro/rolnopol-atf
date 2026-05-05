@@ -15,4 +15,5 @@ export const ENV = {
   BASE_URL: requireEnv("BASE_URL"),
   USER_EMAIL: requireEnv("USER_EMAIL"),
   USER_PASSWORD: requireEnv("USER_PASSWORD"),
+  USER_DISPLAY_NAME: requireEnv("USER_DISPLAY_NAME"),
 } as const;
