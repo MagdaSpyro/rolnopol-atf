@@ -76,6 +76,7 @@ For UI tests:
 - Use Page Objects pattern.
 - Use stable locator strategies (role, label, text) whenever possible.
 - Avoid sleeps and magic timeouts.
+- Use soft assertions (`expect.soft`) when validating multiple independent conditions in a single test, allowing the test to continue and report all failures rather than stopping at the first failure.
 - Reflect implementation progress in the plan.
 
 ### 6. Run regression tests (mandatory)
