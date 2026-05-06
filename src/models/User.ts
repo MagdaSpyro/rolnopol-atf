@@ -6,9 +6,9 @@ export interface User {
 
 export function createUser(overrides: Partial<User> = {}): User {
   return {
-    email: process.env.LOGIN_EMAIL ?? "",
-    password: process.env.LOGIN_PASSWORD ?? "",
-    displayedName: process.env.USER_DISPLAY_NAME ?? "",
+    email: process.env.EMPTY_USER_EMAIL ?? "",
+    password: process.env.EMPTY_USER_PASSWORD ?? "",
+    displayedName: process.env.EMPTY_USER_DISPLAY_NAME ?? "",
     ...overrides,
   };
 }
