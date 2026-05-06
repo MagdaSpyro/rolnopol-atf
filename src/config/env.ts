@@ -13,7 +13,7 @@ function requireEnv(name: string): string {
 
 export const ENV = {
   BASE_URL: requireEnv("BASE_URL"),
-  USER_EMAIL: requireEnv("USER_EMAIL"),
-  USER_PASSWORD: requireEnv("USER_PASSWORD"),
-  USER_DISPLAY_NAME: requireEnv("USER_DISPLAY_NAME"),
+  EMPTY_USER_EMAIL: requireEnv("EMPTY_USER_EMAIL"),
+  EMPTY_USER_PASSWORD: requireEnv("EMPTY_USER_PASSWORD"),
+  EMPTY_USER_DISPLAY_NAME: requireEnv("EMPTY_USER_DISPLAY_NAME"),
 } as const;
