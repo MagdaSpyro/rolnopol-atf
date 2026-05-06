@@ -20,7 +20,7 @@ jobs:
       BASE_URL: ${{ vars.BASE_URL }}
       EMPTY_USER_EMAIL: ${{ secrets.EMPTY_USER_EMAIL }}
       EMPTY_USER_PASSWORD: ${{ secrets.EMPTY_USER_PASSWORD }}
-      EMPTY_USER_DISPLAY_NAME: ${{ vars.EMPTY_USER_DISPLAY_NAME }}
+      EMPTY_USER_DISPLAY_NAME: ${{ secrets.EMPTY_USER_DISPLAY_NAME }}
     services:
       rolnopol:
         image: jaktestowac/rolnopol:latest
