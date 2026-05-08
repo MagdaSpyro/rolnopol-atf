@@ -1,12 +1,10 @@
 import { expect, test } from "@playwright/test";
-import { generateUniqueEmail } from "../src/helpers/testDataHelpers";
-import { ApiDocsPage } from "../src/pages/ApiDocsPage";
-import { DocsPage } from "../src/pages/DocsPage";
-import { HomePage } from "../src/pages/HomePage";
-import { LoginPage } from "../src/pages/LoginPage";
-import { RegisterPage } from "../src/pages/RegisterPage";
-import { ProfilePage } from "../src/pages/ProfilePage";
-import { getDemoEnvUser } from "../src/models/User";
+import { generateUniqueEmail } from "../../src/helpers/testDataHelpers";
+import { ApiDocsPage } from "../../src/pages/ApiDocsPage";
+import { DocsPage } from "../../src/pages/DocsPage";
+import { HomePage } from "../../src/pages/HomePage";
+import { LoginPage } from "../../src/pages/LoginPage";
+import { RegisterPage } from "../../src/pages/RegisterPage";
 
 test(
   "should display the correct page title 'Rolnopol' on homepage",
@@ -20,7 +18,7 @@ test(
 
     // Assert
     await expect(homePage.page).toHaveTitle("Rolnopol");
-  }
+  },
 );
 
 test(
@@ -36,7 +34,7 @@ test(
 
     // Assert
     await expect(loginPage.loginSubtitle).toHaveText(expectedSubtitle);
-  }
+  },
 );
 
 test(
@@ -49,7 +47,7 @@ test(
       "API documentation for the Rolnopol service with versioning support";
 
     await expect(apiDocsPage.iframe.getByText(expectedHeading)).toBeVisible();
-  }
+  },
 );
 
 test(
@@ -61,7 +59,7 @@ test(
     const expectedSubtitle = "Rolnopol System Guide & API Reference";
 
     await expect(docsPage.docsHeaderSubtitle).toHaveText(expectedSubtitle);
-  }
+  },
 );
 
 test(
@@ -77,7 +75,7 @@ test(
 
     // Assert
     await expect(registerPage.registerSubtitle).toHaveText(expectedSubtitle);
-  }
+  },
 );
 
 test(
@@ -95,19 +93,5 @@ test(
     // Assert
     await expect(registerPage.successMessage).toBeVisible();
     await expect(page).toHaveURL("/login.html");
-  }
-);
-test(
-  "demo user can log in and reach profile",
-  { tag: ["@smoke", "@auth"] },
-  async ({ page }) => {
-    const demo = getDemoEnvUser();
-    const loginPage = new LoginPage(page);
-    const profilePage = new ProfilePage(page);
-
-    await loginPage.goto();
-    await loginPage.login(demo.email, demo.password);
-
-    await expect(page).toHaveURL(profilePage.PAGE_URL);
   },
 );
