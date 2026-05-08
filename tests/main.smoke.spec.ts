@@ -5,6 +5,8 @@ import { DocsPage } from "../src/pages/DocsPage";
 import { HomePage } from "../src/pages/HomePage";
 import { LoginPage } from "../src/pages/LoginPage";
 import { RegisterPage } from "../src/pages/RegisterPage";
+import { ProfilePage } from "../src/pages/ProfilePage";
+import { getDemoEnvUser } from "../src/models/User";
 
 test(
   "should display the correct page title 'Rolnopol' on homepage",
@@ -94,4 +96,18 @@ test(
     await expect(registerPage.successMessage).toBeVisible();
     await expect(page).toHaveURL("/login.html");
   }
+);
+test(
+  "demo user can log in and reach profile",
+  { tag: ["@smoke", "@auth"] },
+  async ({ page }) => {
+    const demo = getDemoEnvUser();
+    const loginPage = new LoginPage(page);
+    const profilePage = new ProfilePage(page);
+
+    await loginPage.goto();
+    await loginPage.login(demo.email, demo.password);
+
+    await expect(page).toHaveURL(profilePage.PAGE_URL);
+  },
 );

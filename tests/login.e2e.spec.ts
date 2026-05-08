@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { createUser } from "../src/factories/userFactory";
+import { getEmptyEnvUser } from "../src/models/User";
 import { HomePage } from "../src/pages/HomePage";
 import { LoginPage } from "../src/pages/LoginPage";
 import { ProfilePage } from "../src/pages/ProfilePage";
@@ -12,7 +12,7 @@ test(
     const loginPage = new LoginPage(page);
     const profilePage = new ProfilePage(page);
     const homePage = new HomePage(page);
-    const user = createUser();
+    const user = getEmptyEnvUser();
 
     // Act — navigate to login and submit credentials
     await loginPage.goto();
