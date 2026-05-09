@@ -4,6 +4,11 @@
 
 Follow [CODING_STANDARDS.md](../CODING_STANDARDS.md) for all code-level conventions when creating or modifying tests, page objects, and helper files.
 
+## Environment File Access
+
+- Never read `.env` for AI tasks.
+- For AI credential access, always use `#file:.env.ai`.
+
 `CODING_STANDARDS.md` is the source of truth for:
 
 - test structure conventions
