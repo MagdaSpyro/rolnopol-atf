@@ -1,35 +1,32 @@
 import { expect, test } from "@playwright/test";
-import { createUser } from "../src/factories/userFactory";
-import { LoginPage } from "../src/pages/LoginPage";
-import { ProfilePage } from "../src/pages/ProfilePage";
+import { getDemoEnvUser } from "../../src/models/User";
+import { ProfilePage } from "../../src/pages/ProfilePage";
 
 test(
-  "should display correct user information on the profile page after login",
-  { tag: ["@auth", "@login", "@profile"] },
+  "should display correct user information on the profile page",
+  { tag: ["@auth", "@profile"] },
   async ({ page }) => {
     // Arrange
-    const loginPage = new LoginPage(page);
     const profilePage = new ProfilePage(page);
-    const user = createUser();
+    const user = getDemoEnvUser();
 
-    // Act — navigate to login and submit credentials
-    await loginPage.goto();
-    await loginPage.login(user.email, user.password);
+    // Act
+    await page.goto(profilePage.PAGE_URL);
 
-    // Assert — user information section
+    // Assert
     await expect.soft(profilePage.profileHeader).toBeVisible();
     await expect.soft(profilePage.displayedNameValue).toBeVisible();
     await expect.soft(profilePage.emailValue).toHaveText(user.email);
     await expect.soft(profilePage.lastLoginValue).toBeVisible();
 
-    // Assert — navigation links are present and visible
+    // Assert
     await expect.soft(profilePage.navHome).toBeVisible();
     await expect.soft(profilePage.navProfile).toBeVisible();
     await expect.soft(profilePage.navStaffFields).toBeVisible();
     await expect.soft(profilePage.navFinancial).toBeVisible();
     await expect.soft(profilePage.navMarketplace).toBeVisible();
 
-    // Assert — interactive components are visible
+    // Assert
     await expect.soft(profilePage.newDisplayedNameInput).toBeVisible();
     await expect.soft(profilePage.newPasswordInput).toBeVisible();
     await expect.soft(profilePage.confirmPasswordInput).toBeVisible();
