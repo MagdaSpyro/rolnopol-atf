@@ -1,34 +1,27 @@
 import { expect, test } from "@playwright/test";
-import { StaffFieldsPage } from "../../src/pages/StaffFieldsPage";
+import { StaffFieldsMainPage } from "../../src/pages/StaffFieldsMainPage";
 
-test(
-  "should create a new field in Staff & Fields view as authenticated user",
-  { tag: ["@auth", "@farm", "@crud", "@resources"] },
-  async ({ page }) => {
-    // Arrange
-    const staffFieldsPage = new StaffFieldsPage(page);
-    const uniqueFieldName = `ATF Field ${Date.now()}`;
-    let initialFieldsCount = 0;
+test.describe("DEMO_USER Staff & Fields E2E", () => {
+  test(
+    "should create a new field in Staff & Fields view",
+    { tag: ["@auth", "@crud", "@farm", "@resources", "@happy-path"] },
+    async ({ page }) => {
+      const staffFieldsMainPage = new StaffFieldsMainPage(page);
+      const uniqueFieldName = `Auto Field ${Date.now()}`;
+      const fieldAreaInHa = 7;
+      let initialFieldCount = 0;
 
-    // Act
-    await page.goto(staffFieldsPage.PAGE_URL);
-    initialFieldsCount = await staffFieldsPage.getTotalFieldsCount();
+      await staffFieldsMainPage.goto();
+      await expect.soft(page).toHaveURL(staffFieldsMainPage.PAGE_URL);
+      await expect.soft(staffFieldsMainPage.pageHeading).toBeVisible();
+      initialFieldCount = await staffFieldsMainPage.getTotalFieldsCount();
 
-    // Assert
-    await expect(page).toHaveURL(staffFieldsPage.PAGE_URL);
+      await staffFieldsMainPage.addField(uniqueFieldName, fieldAreaInHa);
 
-    // Act
-    await staffFieldsPage.openAddFieldModal();
-    await staffFieldsPage.addField(
-      uniqueFieldName,
-      "powiat aleksandrowski",
-      "12",
-    );
-
-    // Assert
-    await expect(page.getByText("Field added!")).toBeVisible();
-    await expect
-      .poll(async () => staffFieldsPage.getTotalFieldsCount())
-      .toBeGreaterThan(initialFieldsCount);
-  },
-);
+      await expect.soft(staffFieldsMainPage.fieldAddedAlert).toBeVisible();
+      await expect
+        .poll(async () => staffFieldsMainPage.getTotalFieldsCount())
+        .toBeGreaterThan(initialFieldCount);
+    },
+  );
+});
