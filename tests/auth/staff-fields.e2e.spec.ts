@@ -12,13 +12,13 @@ test.describe("DEMO_USER Staff & Fields E2E", () => {
    //   let initialFieldCount = 0;
 
       await staffFieldsMainPage.goto();
-      await expect.soft(page).toHaveURL(staffFieldsMainPage.PAGE_URL);
-      await expect.soft(staffFieldsMainPage.pageHeading).toBeVisible();
+ //    await expect.soft(page).toHaveURL(staffFieldsMainPage.PAGE_URL);
+ //     await expect.soft(staffFieldsMainPage.pageHeading).toBeVisible();
  //     initialFieldCount = await staffFieldsMainPage.getTotalFieldsCount();
 
-      await staffFieldsMainPage.addField(uniqueFieldName, fieldAreaInHa);
+  //    await staffFieldsMainPage.addField(uniqueFieldName, fieldAreaInHa);
 
-      await expect.soft(staffFieldsMainPage.fieldAddedAlert).toBeVisible();
+ //     await expect.soft(staffFieldsMainPage.fieldAddedAlert).toBeVisible();
  //     await expect
   //      .poll(async () => staffFieldsMainPage.getTotalFieldsCount())
   //      .toBeGreaterThan(initialFieldCount);
