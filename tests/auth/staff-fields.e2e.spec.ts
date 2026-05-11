@@ -1,5 +1,4 @@
 import { expect, test } from "@playwright/test";
-import { ProfilePage } from "../../src/pages/ProfilePage";
 import { StaffFieldsPage } from "../../src/pages/StaffFieldsPage";
 
 test(
@@ -7,14 +6,12 @@ test(
   { tag: ["@auth", "@farm", "@crud", "@resources"] },
   async ({ page }) => {
     // Arrange
-    const profilePage = new ProfilePage(page);
     const staffFieldsPage = new StaffFieldsPage(page);
     const uniqueFieldName = `ATF Field ${Date.now()}`;
     let initialFieldsCount = 0;
 
     // Act
-    await page.goto(profilePage.PAGE_URL);
-    await profilePage.navStaffFields.click();
+    await page.goto(staffFieldsPage.PAGE_URL);
     initialFieldsCount = await staffFieldsPage.getTotalFieldsCount();
 
     // Assert
