@@ -12,7 +12,7 @@ test.describe("DEMO_USER Staff & Fields E2E", () => {
    //   let initialFieldCount = 0;
 
       await staffFieldsMainPage.goto();
- //    await expect.soft(page).toHaveURL(staffFieldsMainPage.PAGE_URL);
+      await expect.soft(page).toHaveURL(staffFieldsMainPage.PAGE_URL);
  //     await expect.soft(staffFieldsMainPage.pageHeading).toBeVisible();
  //     initialFieldCount = await staffFieldsMainPage.getTotalFieldsCount();
 
