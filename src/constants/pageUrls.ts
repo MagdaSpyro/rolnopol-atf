@@ -5,6 +5,7 @@ export const PAGE_URLS = {
   LOGIN: "/login.html",
   PROFILE: "/profile.html",
   REGISTER: "/register.html",
+  STAFF_FIELDS_MAIN: "/staff-fields-main.html",
 } as const;
 //typ PageUrl moze byc jedna z wartosci obieku PAGE_URLS, jest teraz unią stringów reprezentujących wszystkie wartości w PAGE_URLS, co pozwala na bezpieczne używanie tych wartości w kodzie
 export type PageUrl = (typeof PAGE_URLS)[keyof typeof PAGE_URLS];
