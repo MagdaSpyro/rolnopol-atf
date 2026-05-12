@@ -26,18 +26,8 @@ test.describe("DEMO_USER Staff & Fields E2E", () => {
         .or(page.getByRole("spinbutton", { name: /Liczba zwierząt/i }))
         .first();
       const submitAddHerdBtn = page
-        .locator("#addAnimalForm")
-        .getByRole("button", { name: "+ Add Animal Group" })
-        .or(
-          page
-            .locator("#addHerdForm")
-            .getByRole("button", { name: "+ Add Herd" }),
-        )
-        .or(
-          page
-            .locator("#addAnimalForm")
-            .getByRole("button", { name: "+ Dodaj stado" }),
-        )
+        .locator("form")
+        .getByRole("button", { name: /\+\s*(Add Animal Group|Add Herd|Dodaj stado)/i })
         .first();
       const herdAddedAlert = page
         .getByText("Animal group added!")
