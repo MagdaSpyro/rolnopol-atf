@@ -14,6 +14,12 @@ export class StaffFieldsMainPage extends BasePage {
   readonly fieldAddedAlert: Locator;
   readonly totalFieldsCounter: Locator;
 
+  readonly openAddAnimalBtn: Locator;
+  readonly addAnimalModal: Locator;
+  readonly animalTypeSelect: Locator;
+  readonly animalAmountInput: Locator;
+  readonly submitAddAnimalBtn: Locator;
+
   constructor(page: Page) {
     super(page);
     this.pageHeading = page.getByRole("heading", {
@@ -35,6 +41,14 @@ export class StaffFieldsMainPage extends BasePage {
     });
     this.fieldAddedAlert = page.getByText("Field added!");
     this.totalFieldsCounter = page.locator("#totalFields");
+
+    this.openAddAnimalBtn = page.locator("#openAddAnimalModal");
+    this.addAnimalModal = page.locator("#addAnimalModal");
+    this.animalTypeSelect = page.locator("#animalType");
+    this.animalAmountInput = page.locator("#animalAmount");
+    this.submitAddAnimalBtn = page
+      .locator("#addAnimalForm")
+      .getByRole("button", { name: /Add Animal/ });
   }
 
   async addField(name: string, areaInHa: number) {
@@ -55,5 +69,24 @@ export class StaffFieldsMainPage extends BasePage {
 
   fieldListItemByName(name: string): Locator {
     return this.page.locator("li").filter({ hasText: name }).first();
+  }
+
+  async addAnimal(type: string, amount: number) {
+    await this.openAddAnimalBtn.click();
+    await this.animalTypeSelect
+      .locator(`option[value="${type}"]`)
+      .waitFor({ state: "attached" });
+    await this.animalTypeSelect.selectOption(type);
+    await this.animalAmountInput.fill(String(amount));
+    await this.submitAddAnimalBtn.click();
+    await this.addAnimalModal.waitFor({ state: "hidden" });
+  }
+
+  animalListItemByType(type: string): Locator {
+    return this.page
+      .locator("#animalsList")
+      .locator("li")
+      .filter({ hasText: type })
+      .first();
   }
 }
