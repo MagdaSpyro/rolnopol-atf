@@ -79,7 +79,10 @@ export class StaffFieldsMainPage extends BasePage {
     await this.searchAnimalsInput.fill(type);
   }
 
-  animalListItemByType(type: string): Locator {
-    return this.page.locator("#animalsList li").filter({ hasText: type }).first();
+  animalListItem(type: string, amount?: number): Locator {
+    const animalText =
+      amount === undefined ? type : new RegExp(`${type}\\s+${amount}\\b`, "i");
+
+    return this.page.locator("#animalsList li").filter({ hasText: animalText }).first();
   }
 }
