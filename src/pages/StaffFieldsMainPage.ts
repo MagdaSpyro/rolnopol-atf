@@ -12,29 +12,44 @@ export class StaffFieldsMainPage extends BasePage {
   readonly submitAddFieldBtn: Locator;
   readonly searchFieldsInput: Locator;
   readonly fieldAddedAlert: Locator;
-  readonly totalFieldsCounter: Locator;
+
+  readonly openAddAnimalBtn: Locator;
+  readonly animalTypeSelect: Locator;
+  readonly animalAmountInput: Locator;
+  readonly submitAddAnimalBtn: Locator;
+  readonly searchAnimalsInput: Locator;
 
   constructor(page: Page) {
     super(page);
     this.pageHeading = page.getByRole("heading", {
       name: "Staff & Fields Management",
     });
-    this.openAddFieldBtn = page
-      .locator("main")
-      .getByRole("button", { name: "+ Add Field" })
-      .first();
+    this.openAddFieldBtn = page.locator("#openAddFieldModal");
     this.fieldNameInput = page.getByRole("textbox", { name: /Field Name/ });
     this.fieldAreaInput = page.getByRole("spinbutton", {
       name: /Area \(ha\)/,
     });
     this.submitAddFieldBtn = page
       .locator("#addFieldForm")
-      .getByRole("button", { name: "+ Add Field" });
+      .getByRole("button", { name: "Add Field" });
     this.searchFieldsInput = page.getByRole("textbox", {
       name: "Search fields...",
     });
     this.fieldAddedAlert = page.getByText("Field added!");
-    this.totalFieldsCounter = page.locator("#totalFields");
+
+    this.openAddAnimalBtn = page.locator("#openAddAnimalModal");
+    this.animalTypeSelect = page
+      .locator("#addAnimalModal")
+      .getByRole("combobox", { name: "Type" });
+    this.animalAmountInput = page
+      .locator("#addAnimalModal")
+      .getByRole("spinbutton", { name: "Amount" });
+    this.submitAddAnimalBtn = page
+      .locator("#addAnimalForm")
+      .getByRole("button", { name: "Add Animal" });
+    this.searchAnimalsInput = page.getByRole("textbox", {
+      name: "Search animals...",
+    });
   }
 
   async addField(name: string, areaInHa: number) {
@@ -48,12 +63,23 @@ export class StaffFieldsMainPage extends BasePage {
     await this.searchFieldsInput.fill(name);
   }
 
-  async getTotalFieldsCount(): Promise<number> {
-    const rawValue = await this.totalFieldsCounter.textContent();
-    return Number.parseInt(rawValue ?? "0", 10);
-  }
-
   fieldListItemByName(name: string): Locator {
     return this.page.locator("li").filter({ hasText: name }).first();
+  }
+
+  async addAnimal(type: string, amount: number) {
+    await this.openAddAnimalBtn.click();
+    await this.animalTypeSelect.selectOption(type);
+    await this.animalAmountInput.fill(String(amount));
+    await this.submitAddAnimalBtn.click();
+    await this.page.locator("#addAnimalModal").waitFor({ state: "hidden" });
+  }
+
+  async searchAnimalByType(type: string) {
+    await this.searchAnimalsInput.fill(type);
+  }
+
+  animalListItemByType(type: string): Locator {
+    return this.page.locator("#animalsList li").filter({ hasText: type }).first();
   }
 }
