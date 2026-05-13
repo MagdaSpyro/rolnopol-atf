@@ -54,8 +54,8 @@ jobs:
         run: npx playwright install-deps chromium
 
       - name: Wait for rolnopol service to be ready
-        env:     
-           BASE_URL: ${{ vars.BASE_URL }}
+        env:
+          BASE_URL: ${{ vars.BASE_URL }}
         run: |
           set -a
           . ./.env

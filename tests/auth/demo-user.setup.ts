@@ -5,7 +5,7 @@ import { getDemoEnvUser } from "../../src/models/User";
 import { LoginPage } from "../../src/pages/LoginPage";
 import { ProfilePage } from "../../src/pages/ProfilePage";
 import { AUTH_STORAGE_STATE } from "../../playwright.config";
- 
+
 test(
   "authenticate DEMO_USER and persist storage state",
   { tag: ["@auth", "@session", "@setup"] },

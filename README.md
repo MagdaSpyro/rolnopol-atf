@@ -36,10 +36,10 @@ npx playwright install
 
 ## Running Tests
 
-| Command | Description |
-|---|---|
-| `npm test` | Run all tests in headless mode |
-| `npm run test:headed` | Run all tests with a visible browser |
+| Command               | Description                                 |
+| --------------------- | ------------------------------------------- |
+| `npm test`            | Run all tests in headless mode              |
+| `npm run test:headed` | Run all tests with a visible browser        |
 | `npm run test:report` | Open the HTML report from the last test run |
 
 ## Project Structure

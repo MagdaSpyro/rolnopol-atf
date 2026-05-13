@@ -80,6 +80,9 @@ export class StaffFieldsMainPage extends BasePage {
   }
 
   animalListItemByType(type: string): Locator {
-    return this.page.locator("#animalsList li").filter({ hasText: type }).first();
+    return this.page
+      .locator("#animalsList li")
+      .filter({ hasText: type })
+      .first();
   }
 }

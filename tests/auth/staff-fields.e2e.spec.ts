@@ -18,11 +18,11 @@ test.describe("DEMO_USER Staff & Fields E2E", () => {
 
       await expect.soft(staffFieldsMainPage.fieldAddedAlert).toBeVisible();
 
-    //  await staffFieldsMainPage.searchFieldByName(uniqueFieldName);
+      //  await staffFieldsMainPage.searchFieldByName(uniqueFieldName);
 
-   //   await expect
-   //     .soft(staffFieldsMainPage.fieldListItemByName(uniqueFieldName))
-   //     .toBeVisible();
+      //   await expect
+      //     .soft(staffFieldsMainPage.fieldListItemByName(uniqueFieldName))
+      //     .toBeVisible();
     },
   );
 
