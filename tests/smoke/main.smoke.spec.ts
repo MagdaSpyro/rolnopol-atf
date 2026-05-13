@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+
 import { generateUniqueEmail } from "../../src/helpers/testDataHelpers";
 import { ApiDocsPage } from "../../src/pages/ApiDocsPage";
 import { DocsPage } from "../../src/pages/DocsPage";

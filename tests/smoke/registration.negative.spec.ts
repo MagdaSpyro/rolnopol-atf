@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+
 import { RegisterPage } from "../../src/pages/RegisterPage";
 
 test.describe("Registration Negative Tests", () => {
@@ -30,7 +31,7 @@ test.describe("Registration Negative Tests", () => {
       await registerPage.goto();
       await registerPage.registerSubmitBtn.click();
 
-      await expect(registerPage.successMessage).not.toBeVisible();
+      await expect(registerPage.successMessage).toBeHidden();
       await expect(page).toHaveURL(/register\.html$/);
     },
   );
@@ -70,10 +71,10 @@ test.describe("Registration Negative Tests", () => {
         await registerPage.goto();
         await registerPage.emailInput.fill("valid@example.com");
         await registerPage.passwordInput.fill(shortPassword);
-        await registerPage.registerSubmitBtn.click({ force: true });
+        await registerPage.registerSubmitBtn.click();
 
         await expect.soft(registerPage.passwordValidationError).toBeVisible();
-        await expect.soft(registerPage.successMessage).not.toBeVisible();
+        await expect.soft(registerPage.successMessage).toBeHidden();
         await expect.soft(page).toHaveURL(/register\.html$/);
       }
     },

@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+
 import { getDemoEnvUser } from "../../src/models/User";
 import { ProfilePage } from "../../src/pages/ProfilePage";
 
