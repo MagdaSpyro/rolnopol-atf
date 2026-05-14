@@ -1,0 +1,15 @@
+node_modules/
+package-lock.json
+blob-report/
+.github/agents/
+.github/prompts/
+.github/skills/
+playwright/.auth/
+playwright/.cache/
+playwright-report/
+playwright-report-ci/
+test-results/
+.ai-docs/
+.ai-temp/
+.playwright-mcp/
+.vscode/mcp.json

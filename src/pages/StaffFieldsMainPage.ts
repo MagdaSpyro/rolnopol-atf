@@ -1,4 +1,5 @@
 import { Locator, Page } from "@playwright/test";
+
 import { PAGE_URLS } from "../constants/pageUrls";
 import { BasePage } from "./BasePage";
 
@@ -80,6 +81,9 @@ export class StaffFieldsMainPage extends BasePage {
   }
 
   animalListItemByType(type: string): Locator {
-    return this.page.locator("#animalsList li").filter({ hasText: type }).first();
+    return this.page
+      .locator("#animalsList li")
+      .filter({ hasText: type })
+      .first();
   }
 }

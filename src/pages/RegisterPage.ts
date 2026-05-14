@@ -1,4 +1,5 @@
 import { Locator, Page } from "@playwright/test";
+
 import { PAGE_URLS } from "../constants/pageUrls";
 import { BasePage } from "./BasePage";
 

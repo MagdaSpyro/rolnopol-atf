@@ -1,44 +1,36 @@
 import { Locator, Page } from "@playwright/test";
+
 import { PAGE_URLS } from "../constants/pageUrls";
 import { BasePage } from "./BasePage";
 
+/**
+ * Page Object for the user profile/dashboard page.
+ * Provides locators for profile sections, user info, update form, and account actions.
+ */
 export class ProfilePage extends BasePage {
-  PAGE_URL = PAGE_URLS.PROFILE;
+  readonly PAGE_URL = PAGE_URLS.PROFILE;
 
-  // Section headings
   readonly profileInformationHeading: Locator;
   readonly updateProfileHeading: Locator;
   readonly dangerZoneHeading: Locator;
+  readonly logoutBtn: Locator;
 
-  // User information
-  readonly profileHeader: Locator;
-  readonly displayedNameValue: Locator;
+  readonly welcomeMessage: Locator;
+  readonly displayedName: Locator;
   readonly emailValue: Locator;
-  readonly lastLoginValue: Locator;
+  readonly userId: Locator;
+  readonly createdAt: Locator;
+  readonly lastLogin: Locator;
 
-  // Navigation links
-  readonly navHome: Locator;
-  readonly navProfile: Locator;
-  readonly navStaffFields: Locator;
-  readonly navFinancial: Locator;
-  readonly navMarketplace: Locator;
-
-  // Update Profile form
-  readonly newDisplayedNameInput: Locator;
+  readonly displayNameInput: Locator;
   readonly newPasswordInput: Locator;
   readonly confirmPasswordInput: Locator;
-  readonly updateProfileSubmitBtn: Locator;
+  readonly saveChangesBtn: Locator;
 
-  // Danger Zone
   readonly deleteAccountBtn: Locator;
-
-  // Logout
-  readonly logoutBtn: Locator;
 
   constructor(page: Page) {
     super(page);
-
-    // Section headings
     this.profileInformationHeading = page.getByRole("heading", {
       name: "Profile Information",
     });
@@ -48,31 +40,23 @@ export class ProfilePage extends BasePage {
     this.dangerZoneHeading = page.getByRole("heading", {
       name: "Danger Zone",
     });
+    this.logoutBtn = page
+      .getByTestId("header-component")
+      .getByTestId("logout-btn");
 
-    // User information
-    this.profileHeader = page.getByTestId("profile-header");
-    this.displayedNameValue = page.getByTestId("displayed-name");
+    this.welcomeMessage = page.getByTestId("nav-profile");
+    this.displayedName = page.getByTestId("displayed-name");
     this.emailValue = page.getByTestId("email-value");
-    this.lastLoginValue = page.getByTestId("last-login");
+    this.userId = page.getByTestId("user-id");
+    this.createdAt = page.getByTestId("created-at");
+    this.lastLogin = page.getByTestId("last-login");
 
-    // Navigation links
-    this.navHome = page.getByTestId("nav-home");
-    this.navProfile = page.getByTestId("nav-profile");
-    this.navStaffFields = page.getByTestId("nav-staff-fields");
-    this.navFinancial = page.getByTestId("nav-financial");
-    this.navMarketplace = page.getByTestId("nav-marketplace");
-
-    // Update Profile form
-    this.newDisplayedNameInput = page.getByTestId("new-displayed-name-input");
+    this.displayNameInput = page.getByTestId("new-displayed-name-input");
     this.newPasswordInput = page.getByTestId("new-password-input");
     this.confirmPasswordInput = page.getByTestId("confirm-password-input");
-    this.updateProfileSubmitBtn = page.getByTestId("update-profile-submit-btn");
+    this.saveChangesBtn = page.getByTestId("update-profile-submit-btn");
 
-    // Danger Zone
     this.deleteAccountBtn = page.getByTestId("delete-account-btn");
-
-    // Logout
-    this.logoutBtn = page.getByTestId("logout-btn").first();
   }
 
   async logout() {

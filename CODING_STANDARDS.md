@@ -1,5 +1,14 @@
 # Coding Standards
 
+## Static Analysis Workflow
+
+- Prettier owns formatting. Use `npm run format` locally and `npm run format:check` for verification.
+- ESLint owns code-quality rules and import ordering. Use `npm run lint` instead of VS Code organize-imports.
+- Type safety is enforced with `npm run tsc:check`.
+- Run `npm run check` before pushing when you want the full local workflow.
+- CI uses `npm run check:ci`, which is non-mutating and runs before Playwright tests.
+- Pre-commit hooks run `lint-staged` and `npm run tsc:check` automatically.
+
 ## Test Structure: Arrange-Act-Assert (AAA)
 
 All tests should follow the **Arrange-Act-Assert (AAA)** pattern with clear comment markers:

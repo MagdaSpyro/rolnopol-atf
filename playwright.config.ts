@@ -1,4 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
+
 import { ENV } from "./src/config/env";
 
 export const AUTH_STORAGE_STATE = "playwright/.auth/user.json";
