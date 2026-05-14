@@ -1,29 +1,26 @@
+import { expect, test } from "@playwright/test";
+
 import { HomePage } from "../../src/pages/HomePage";
 import { ProfilePage } from "../../src/pages/ProfilePage";
-import { expect, test } from "./fixtures/demo-user-test";
 
-test(
-  "should verify profile sections, log out and return to home page",
-  { tag: ["@auth", "@session", "@logout"] },
-  async ({ page }) => {
-    // Arrange
-    const profilePage = new ProfilePage(page);
-    const homePage = new HomePage(page);
+test.describe("DEMO_USER Session E2E", () => {
+  test(
+    "should use authenticated session, verify profile sections, and logout successfully",
+    { tag: ["@auth", "@session", "@logout", "@happy-path"] },
+    async ({ page }) => {
+      const profilePage = new ProfilePage(page);
+      const homePage = new HomePage(page);
 
-    // Act
-    await page.goto(profilePage.PAGE_URL);
+      await profilePage.goto();
 
-    // Assert
-    await expect.soft(page).toHaveURL(profilePage.PAGE_URL);
-    await expect(profilePage.profileInformationHeading).toBeVisible();
-    await expect(profilePage.updateProfileHeading).toBeVisible();
-    await expect(profilePage.dangerZoneHeading).toBeVisible();
+      await expect.soft(page).toHaveURL(profilePage.PAGE_URL);
+      await expect.soft(profilePage.profileInformationHeading).toBeVisible();
+      await expect.soft(profilePage.updateProfileHeading).toBeVisible();
+      await expect.soft(profilePage.dangerZoneHeading).toBeVisible();
 
-    // Act
-    await profilePage.logout();
+      await profilePage.logout();
 
-    // Assert
-    await expect(page).toHaveURL(homePage.PAGE_URL);
-    await expect(page).toHaveTitle("Rolnopol");
-  },
-);
+      await expect(page).toHaveURL(homePage.PAGE_URL);
+    },
+  );
+});

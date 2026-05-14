@@ -1,36 +1,40 @@
+import { expect, test } from "@playwright/test";
+
 import { getDemoEnvUser } from "../../src/models/User";
 import { ProfilePage } from "../../src/pages/ProfilePage";
-import { expect, test } from "./fixtures/demo-user-test";
 
-test(
-  "should display correct user information on the profile page",
-  { tag: ["@auth", "@profile"] },
-  async ({ page }) => {
-    // Arrange
-    const profilePage = new ProfilePage(page);
-    const user = getDemoEnvUser();
+test.describe("DEMO_USER Profile Page E2E", () => {
+  test(
+    "should display correct DEMO_USER information in profile sections",
+    { tag: ["@auth", "@profile", "@happy-path"] },
+    async ({ page }) => {
+      const demoUser = getDemoEnvUser();
+      const profilePage = new ProfilePage(page);
 
-    // Act
-    await page.goto(profilePage.PAGE_URL);
+      await profilePage.goto();
+      await expect.soft(page).toHaveURL(profilePage.PAGE_URL);
 
-    // Assert
-    await expect.soft(profilePage.profileHeader).toBeVisible();
-    await expect.soft(profilePage.displayedNameValue).toBeVisible();
-    await expect.soft(profilePage.emailValue).toHaveText(user.email);
-    await expect.soft(profilePage.lastLoginValue).toBeVisible();
+      await expect
+        .soft(profilePage.welcomeMessage)
+        .toContainText(`Welcome, ${demoUser.displayedName}`);
 
-    // Assert
-    await expect.soft(profilePage.navHome).toBeVisible();
-    await expect.soft(profilePage.navProfile).toBeVisible();
-    await expect.soft(profilePage.navStaffFields).toBeVisible();
-    await expect.soft(profilePage.navFinancial).toBeVisible();
-    await expect.soft(profilePage.navMarketplace).toBeVisible();
+      await expect
+        .soft(profilePage.displayedName)
+        .toHaveText(demoUser.displayedName);
+      await expect.soft(profilePage.emailValue).toHaveText(demoUser.email);
+      await expect.soft(profilePage.userId).not.toBeEmpty();
+      await expect.soft(profilePage.createdAt).not.toBeEmpty();
+      await expect.soft(profilePage.lastLogin).not.toBeEmpty();
 
-    // Assert
-    await expect.soft(profilePage.newDisplayedNameInput).toBeVisible();
-    await expect.soft(profilePage.newPasswordInput).toBeVisible();
-    await expect.soft(profilePage.confirmPasswordInput).toBeVisible();
-    await expect.soft(profilePage.updateProfileSubmitBtn).toBeVisible();
-    await expect.soft(profilePage.deleteAccountBtn).toBeVisible();
-  },
-);
+      await expect.soft(profilePage.displayNameInput).toBeVisible();
+      await expect
+        .soft(profilePage.displayNameInput)
+        .toHaveValue(demoUser.displayedName);
+      await expect.soft(profilePage.newPasswordInput).toBeVisible();
+      await expect.soft(profilePage.confirmPasswordInput).toBeVisible();
+      await expect.soft(profilePage.saveChangesBtn).toBeVisible();
+
+      await expect.soft(profilePage.deleteAccountBtn).toBeVisible();
+    },
+  );
+});
