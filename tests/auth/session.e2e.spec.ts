@@ -1,7 +1,6 @@
-import { expect, test } from "@playwright/test";
-
 import { HomePage } from "../../src/pages/HomePage";
 import { ProfilePage } from "../../src/pages/ProfilePage";
+import { expect, test } from "./fixtures/demo-user-test";
 
 test(
   "should verify profile sections, log out and return to home page",

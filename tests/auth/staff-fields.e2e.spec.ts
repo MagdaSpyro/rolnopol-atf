@@ -1,6 +1,5 @@
-import { expect, test } from "@playwright/test";
-
 import { StaffFieldsMainPage } from "../../src/pages/StaffFieldsMainPage";
+import { expect, test } from "./fixtures/demo-user-test";
 
 test.describe("DEMO_USER Staff & Fields E2E", () => {
   test(

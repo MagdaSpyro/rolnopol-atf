@@ -1,7 +1,6 @@
-import { expect, test } from "@playwright/test";
-
 import { getDemoEnvUser } from "../../src/models/User";
 import { ProfilePage } from "../../src/pages/ProfilePage";
+import { expect, test } from "./fixtures/demo-user-test";
 
 test(
   "should display correct user information on the profile page",
